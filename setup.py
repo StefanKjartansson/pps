@@ -23,6 +23,11 @@ else:
     long_description = "No description"
 
 
+tests_require = ["nose", "nose-cover3"]
+if sys.version_info < (2, 7):
+    tests_require.append("unittest2")
+
+
 required = []
 entry_points = {}
 
@@ -45,4 +50,6 @@ setup(
     ],
     entry_points=entry_points,
     zip_safe=False,
+    tests_require=tests_require,
+    test_suite="nose.collector",
 )
