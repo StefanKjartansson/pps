@@ -2,7 +2,7 @@
 {{ name }}
 =====================
 
-{{ description }}
+{{ description|default('Short description') }}
 
 
 Installation
