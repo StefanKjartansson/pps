@@ -165,4 +165,5 @@ setup(
     zip_safe=False,
     package_data=find_package_data(),
     cmdclass = {"test": RunTests},
+    include_package_data=True,
 )
