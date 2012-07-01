@@ -1,5 +1,7 @@
-from paver.easy import * # noqa
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
+from paver.easy import * # noqa
 
 NAME = "{{module_name}}"
 PYCOMPILE_CACHES = ["*.pyc", "*$py.class"]

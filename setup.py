@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""
+Setup file for {{name}}
+"""
 import codecs
 import os
 import sys
@@ -11,17 +14,16 @@ except ImportError:
     raise
     from ez_setup import use_setuptools
     use_setuptools()
-    from setuptools import setup, find_packages, Command
+    from setuptools import setup, find_packages, Command  # noqa
 
 from distutils.util import convert_path
 
 
-is_py3k  = sys.version_info >= (3, 0)
+def read(fname):
+    return codecs.open(os.path.join(os.path.dirname(__file__), fname)).read()
 
-if os.path.exists("README.rst"):
-    long_description = codecs.open("README.rst", "r", "utf-8").read()
-else:
-    long_description = "No description"
+
+long_description = read('README.rst')
 
 
 # Provided as an attribute, so you can append to these instead
