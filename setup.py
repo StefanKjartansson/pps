@@ -19,6 +19,16 @@ except ImportError:
 from distutils.util import convert_path
 
 
+# Hack to prevent stupid "TypeError: 'NoneType' object is not callable" error
+# in multiprocessing/util.py _exit_function when running `python
+# setup.py test` (see
+# http://www.eby-sarna.com/pipermail/peak/2010-May/003357.html)
+try:
+    import multiprocessing
+except ImportError:
+    pass
+
+
 def read(fname):
     return codecs.open(os.path.join(os.path.dirname(__file__), fname)).read()
 
@@ -148,10 +158,10 @@ entry_points = {}
 
 
 setup(
-    name = "{{name}}",
-    version = "{{version|default('0.1')}}",
-    packages = find_packages(exclude=['test_project']),
-    install_requires = required,
+    name="{{name}}",
+    version="{{version|default('0.1')}}",
+    packages=find_packages(exclude=['test_project']),
+    install_requires=required,
     author="{{author.name}}",
     author_email="{{author.email}}",
     description="{{description}}",
@@ -166,6 +176,6 @@ setup(
     entry_points=entry_points,
     zip_safe=False,
     package_data=find_package_data(),
-    cmdclass = {"test": RunTests},
+    cmdclass={"test": RunTests},
     include_package_data=True,
 )
