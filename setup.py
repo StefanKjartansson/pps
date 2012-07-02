@@ -157,6 +157,11 @@ required = ['django', ]
 entry_points = {}
 
 
+tests_require = [
+    'coverage>=3.5.2',
+    'django-nose>=1.1',
+]
+
 setup(
     name="{{name}}",
     version="{{version|default('0.1')}}",
@@ -178,4 +183,6 @@ setup(
     package_data=find_package_data(),
     cmdclass={"test": RunTests},
     include_package_data=True,
+    tests_require=tests_require,
+    extras_require={'test': tests_require},
 )
