@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""
+Setup file for {{name}}
+"""
 import codecs
 import os
 import sys
@@ -15,27 +18,28 @@ except ImportError:
     from setuptools.command.test import test # noqa
 
 
-is_py3k  = sys.version_info >= (3, 0)
+# Hack to prevent stupid "TypeError: 'NoneType' object is not callable" error
+# in multiprocessing/util.py _exit_function when running `python
+# setup.py test` (see
+# http://www.eby-sarna.com/pipermail/peak/2010-May/003357.html)
+try:
+    import multiprocessing  # noqa
+except ImportError:
+    pass
 
-if os.path.exists("README.rst"):
-    long_description = codecs.open("README.rst", "r", "utf-8").read()
-else:
-    long_description = "No description"
 
+def read(fname):
+    return codecs.open(os.path.join(os.path.dirname(__file__), fname)).read()
+
+long_description = read('README.rst')
 
 required = []
 entry_points = {}
-
+tests_require = []
 
 setup(
-    name = "{{name}}",
-    version = "{{version|default('0.1')}}",
-    packages = find_packages(),
-    install_requires = required,
     author="{{author.name}}",
     author_email="{{author.email}}",
-    description="{{description}}",
-    long_description=long_description,
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
@@ -43,6 +47,14 @@ setup(
         "Operating System :: OS Independent",
         "Programming Language :: Python",
     ],
+    description="{{description}}",
     entry_points=entry_points,
+    install_requires=required,
+    long_description=long_description,
+    name="{{name}}",
+    packages=find_packages(),
+    version="{{version|default('0.1')}}",
     zip_safe=False,
+    tests_require=tests_require,
+    extras_require={'test': tests_require},
 )
